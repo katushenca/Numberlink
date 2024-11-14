@@ -16,7 +16,7 @@ class Triangle:
             spaces = re.split(r"[/\\]", triangle_wo_start_spaces[i])[1:-1]
             for j in range(len(spaces)):
                 if spaces[j].count(' ') == 2:
-                    free_positions.append((i, first_white_space_count + 2 + 3*j))
+                    free_positions.append((i, first_white_space_count + 1 + 3*j))
         return free_positions
 
 

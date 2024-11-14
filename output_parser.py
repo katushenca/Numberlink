@@ -13,10 +13,10 @@ class OutputParser:
         triangle_ascii = triangle.ascii_triangle
         for i in range(triangle.nodes_count):
             random_place = random.choice(free_spaces)
-            triangle_ascii[random_place[0]] = triangle_ascii[random_place[0]][:random_place[1]] + str(i) + triangle_ascii[random_place[0]][1 + random_place[1]: ]
+            triangle_ascii[random_place[0]] = triangle_ascii[random_place[0]][:random_place[1]] + str(i) + triangle_ascii[random_place[0]][len(str(i)) + random_place[1]: ]
             free_spaces.remove(random_place)
             random_place = random.choice(free_spaces)
-            triangle_ascii[random_place[0]] = triangle_ascii[random_place[0]][:random_place[1]] + str(i) + triangle_ascii[random_place[0]][1 + random_place[1]: ]
+            triangle_ascii[random_place[0]] = triangle_ascii[random_place[0]][:random_place[1]] + str(i) + triangle_ascii[random_place[0]][len(str(i)) + random_place[1]: ]
             free_spaces.remove(random_place)
         return triangle_ascii
 
