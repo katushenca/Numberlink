@@ -1,5 +1,5 @@
 from input_parser import InputParser
-import Triangle
+from triangle import TriangleObject
 from output_parser import OutputParser
 
 def get_input_data() -> InputParser:
@@ -13,10 +13,12 @@ def get_input_data() -> InputParser:
 
 def get_filled_triangle():
     parser = get_input_data()
-    triangle = Triangle.Triangle(parser.triangle_len, parser.nodes_count)
+    triangle = TriangleObject(parser.triangle_len, parser.nodes_count)
     o_parser = OutputParser()
     triangle.ascii_triangle = o_parser.fill_triangle(triangle)
     return triangle
 
-triangle = get_filled_triangle()
-print(*triangle.ascii_triangle)
+#triangle = get_filled_triangle()
+#print(*triangle.ascii_triangle)
+#print(triangle.generate_all_points())
+#print(triangle.digits_points)
