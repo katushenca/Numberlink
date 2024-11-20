@@ -1,4 +1,5 @@
 import random
+import re
 
 class OutputParser:
     def fill_triangle(self, triangleObject) -> list[str]:
@@ -22,3 +23,18 @@ class OutputParser:
                 free_points[random_place_index])
         return triangle_ascii
 
+
+    def fill_path(self, path, digit, triangle):
+        ascii = triangle.ascii_triangle
+        for node in path[1:-1]:
+            y, x = node
+            line_index = 2 + y * 3
+            line = ascii[line_index]
+
+
+            x_index = 2 + x*3  # x = 0 -> 2 x = 1 -> 5 x = 2 -> 8
+            print('x_index', x_index)
+            line = line[: x_index] + str(digit) + line[x_index + 1 :]
+            ascii[line_index] = line
+
+        triangle.ascii_triangle = ascii

@@ -4,6 +4,7 @@ class PathFinder:
     def find_paths(self, start, end, a, b, triangle):
         triangle_points = triangle.generate_all_points()
         bad_moves = self.get_bad_moves(triangle)
+        print(bad_moves, "bad moves")
         print('aaaaa', bad_moves)
         queue = deque([(start, [
             start])])  # Очередь: каждый элемент - (текущая точка, путь до неё)
@@ -22,11 +23,11 @@ class PathFinder:
             for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 nx, ny = x + dx, y + dy
 
-                print('lalala',path, (nx, ny), self.check_is_point_other_digit(start, end, triangle, (nx, ny)), (path[-1], (nx, ny)) not in bad_moves)
+                #print('lalala',path, (nx, ny), self.check_is_point_other_digit(start, end, triangle, (nx, ny)), (path[-1], (nx, ny)) not in bad_moves)
                 # Проверяем, что новая точка лежит в пределах карты и не была посещена ранее в этом пути
                 if 0 <= ny <= a and 0 <= nx <= b and (nx, ny) not in path and (nx, ny) in triangle_points:
                     if self.check_is_point_other_digit(start, end, triangle, (nx, ny)):
-                        print(path, (nx, ny), 'fsdlfksdlf')
+                        #(path, (nx, ny), 'fsdlfksdlf')
                         if len(path) > 0 and (path[-1], (nx, ny)) not in bad_moves:
                             queue.append(((nx, ny), path + [(nx, ny)]))  # Добавляем в очередь новую точку и обновленный путь
 
@@ -45,8 +46,8 @@ class PathFinder:
         points = triangle.generate_all_points()
         y = triangle.triangle_len
         x = triangle.triangle_len * 2 - 1
-        for y in range(0, y, 2):
-            for x in range(0, x, 2):
+        for y in range(0, y+1, 2):
+            for x in range(0, x+1, 2):
                 if (y, x) in points and (y + 1, x) in points:
                     result.append(((y, x), (y + 1, x)))
                     result.append(((y + 1, x), (y, x)))

@@ -34,5 +34,10 @@ finder = PathFinder()
 a = triangle.triangle_len * 2 - 1
 b = triangle.triangle_len
 all_paths = finder.find_paths(triangle.digits_points[0][0], triangle.digits_points[1][0], a, b, triangle)
-for idx, p in enumerate(all_paths):
-    print(f"Path {idx + 1}: {p}")
+#for idx, p in enumerate(all_paths):
+ #   print(f"Path {idx + 1}: {p}")
+
+parser = OutputParser()
+print(all_paths[0])
+parser.fill_path(all_paths[0], 'a', triangle)
+print(*triangle.ascii_triangle)
