@@ -13,7 +13,7 @@ class TriangleObject:
         self.nodes_count = nodes_count
         self.ascii_triangle = TriangleObject.get_triangle_pattern(self.triangle_len)
         #self.free_points_coords = []
-        self.digits_points = []
+        self.digits_points = [] # ((x,y), digit)
 
 
     def get_free_positions(self) -> list[tuple]:

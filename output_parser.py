@@ -9,14 +9,14 @@ class OutputParser:
             random_place_index = random.randint(0, len(free_spaces) - 1)
             random_place = free_spaces[random_place_index]
             triangle_ascii[random_place[0]] = triangle_ascii[random_place[0]][:random_place[1]] + str(i) + triangle_ascii[random_place[0]][len(str(i)) + random_place[1]: ]
-            triangleObject.digits_points.append(free_points[random_place_index])
+            triangleObject.digits_points.append((free_points[random_place_index], i))
             free_spaces.remove(random_place)
             free_points.remove(free_points[random_place_index])
             random_place_index = random.randint(0, len(free_spaces) - 1)
             random_place = free_spaces[random_place_index]
             triangle_ascii[random_place[0]] = triangle_ascii[random_place[0]][:random_place[1]] + str(i) + triangle_ascii[random_place[0]][len(str(i)) + random_place[1]: ]
             triangleObject.digits_points.append(
-                free_points[random_place_index])
+                (free_points[random_place_index], i))
             free_spaces.remove(random_place)
             free_points.remove(
                 free_points[random_place_index])
