@@ -21,23 +21,34 @@ def get_filled_triangle():
     return triangle
 
 
-
-
-
-
 triangle = get_filled_triangle()
 print(*triangle.ascii_triangle)
-print(triangle.generate_all_points())
-print(triangle.digits_points)
 
 finder = PathFinder()
+
 a = triangle.triangle_len * 2 - 1
 b = triangle.triangle_len
 all_paths = finder.find_paths(triangle.digits_points[0][0], triangle.digits_points[1][0], a, b, triangle)
-#for idx, p in enumerate(all_paths):
- #   print(f"Path {idx + 1}: {p}")
+
 
 parser = OutputParser()
-print(all_paths[0])
-parser.fill_path(all_paths[0], 'a', triangle)
-print(*triangle.ascii_triangle)
+solutions = finder.find_solutions(triangle.digits_points, a, b, triangle)
+print('solutions')
+lines = 'abcdefghijklmnopqrstuvwxyz'
+count = 0
+
+for solution in solutions:
+    print(f'Решение # {count}')
+    digit_name = 0
+    for path in solution:
+        path_input = ' -> '.join(f'({x},{y})' for x, y in path)
+        print(f'{digit_name}: {path_input}')
+        digit_name += 1
+    letter = 0
+    ascii_triangle = triangle.ascii_triangle.copy()
+    for path in solution:
+        ascii = parser.fill_path(path, lines[letter], ascii_triangle)
+        ascii_triangle = ascii
+        letter += 1
+    print(*ascii_triangle)
+    count += 1

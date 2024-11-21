@@ -24,17 +24,15 @@ class OutputParser:
         return triangle_ascii
 
 
-    def fill_path(self, path, digit, triangle):
-        ascii = triangle.ascii_triangle
+    def fill_path(self, path, digit, ascii):
         for node in path[1:-1]:
             y, x = node
             line_index = 2 + y * 3
             line = ascii[line_index]
 
 
-            x_index = 2 + x*3  # x = 0 -> 2 x = 1 -> 5 x = 2 -> 8
-            print('x_index', x_index)
+            x_index = 2 + x * 3
             line = line[: x_index] + str(digit) + line[x_index + 1 :]
             ascii[line_index] = line
 
-        triangle.ascii_triangle = ascii
+        return ascii

@@ -1,36 +1,26 @@
-from collections import deque
+from collections import deque, defaultdict
 import triangle
 class PathFinder:
     def find_paths(self, start, end, a, b, triangle):
         triangle_points = triangle.generate_all_points()
         bad_moves = self.get_bad_moves(triangle)
-        print(bad_moves, "bad moves")
-        print('aaaaa', bad_moves)
-        queue = deque([(start, [
-            start])])  # Очередь: каждый элемент - (текущая точка, путь до неё)
-        all_paths = []  # Список для хранения всех путей
+        queue = deque([(start, [start])])
+        all_paths = []
 
         while queue:
-            current, path = queue.popleft()  # Достаем текущую точку и путь
+            current, path = queue.popleft()
             x, y = current
 
-            # Если достигли конечной точки, сохраняем путь
             if current == end:
                 all_paths.append(path)
                 continue
 
-            # Генерация всех возможных направлений
             for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 nx, ny = x + dx, y + dy
-
-                #print('lalala',path, (nx, ny), self.check_is_point_other_digit(start, end, triangle, (nx, ny)), (path[-1], (nx, ny)) not in bad_moves)
-                # Проверяем, что новая точка лежит в пределах карты и не была посещена ранее в этом пути
                 if 0 <= ny <= a and 0 <= nx <= b and (nx, ny) not in path and (nx, ny) in triangle_points:
                     if self.check_is_point_other_digit(start, end, triangle, (nx, ny)):
-                        #(path, (nx, ny), 'fsdlfksdlf')
                         if len(path) > 0 and (path[-1], (nx, ny)) not in bad_moves:
-                            queue.append(((nx, ny), path + [(nx, ny)]))  # Добавляем в очередь новую точку и обновленный путь
-
+                            queue.append(((nx, ny), path + [(nx, ny)]))
         return all_paths
 
 
@@ -59,3 +49,30 @@ class PathFinder:
                     result.append(((y + 1, x), (y, x)))
 
         return result
+
+    def find_solutions(self, points, a, b, triangle):
+        points_by_digit = defaultdict(list)
+        for coord, digit in points:
+            points_by_digit[digit].append(coord)
+
+        all_solutions = []
+        def backtrack(index, current_solution, used_points):
+            if index == len(points_by_digit):
+                all_solutions.append(current_solution[:])
+                return
+
+            digit = list(points_by_digit.keys())[index]
+            point_pairs = points_by_digit[digit]
+            start, end = point_pairs
+            possible_paths = self.find_paths(start, end, a, b,
+                                             triangle)
+            for path in possible_paths:
+                if all(p not in used_points for p in
+                       path):
+                    current_solution.append(path)
+                    used_points.update(path)
+                    backtrack(index + 1, current_solution, used_points)
+                    current_solution.pop()
+                    used_points.difference_update(path)
+        backtrack(0, [], set())
+        return all_solutions
