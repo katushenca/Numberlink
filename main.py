@@ -14,12 +14,30 @@ def get_input_data() -> InputParser:
             continue
 
 def get_filled_triangle():
-    parser = get_input_data()
-    triangle = TriangleObject(parser.triangle_len, parser.nodes_count)
-    o_parser = OutputParser()
-    triangle.ascii_triangle = o_parser.fill_triangle(triangle)
-    return triangle
-
+    isRandom = input('Хотите сгенерировать автоматически? (Y/N)')
+    if isRandom == 'Y':
+        parser = get_input_data()
+        triangle = TriangleObject(parser.triangle_len, parser.nodes_count)
+        o_parser = OutputParser()
+        triangle.ascii_triangle = o_parser.fill_triangle(triangle)
+        return triangle
+    else:
+        print('Нужно написать головоломку в папке Input')
+        triangle_len = input('Введите имя файла (без расширения), которое вы изменили')
+        nodes_count = input('Введите количество добавленных точек')
+        try:
+            with open(f'C:\\Users\\shute\\Desktop\\repo\\Numberlink\\Numberlink\\triangle_patterns\\{triangle_len}.txt') as file:
+                triangle_ascii = []
+                for line in file:
+                    if '.' in line:
+                        break
+                    triangle_ascii.append(line)
+        except Exception as e:
+            print(e.args[0])
+        triangle = TriangleObject(int(triangle_len), int(nodes_count))
+        triangle.ascii_triangle = triangle_ascii
+        return triangle
+    #TODO написать функцию, которая будет заполнять triangle.digits_points
 
 triangle = get_filled_triangle()
 print(*triangle.ascii_triangle)
