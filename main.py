@@ -36,12 +36,8 @@ def get_filled_triangle():
             print(e.args[0])
         triangle = TriangleObject(int(triangle_len), int(nodes_count))
         triangle.ascii_triangle = triangle_ascii
+
         user_points = triangle.get_user_points()
-        all_points = triangle.generate_all_points()
-        free_points = triangle.get_user_free_points()
-        print(f'user_points {user_points}')
-        print(f'user_free_points {free_points}')
-        print(f'all {all_points}')
         triangle.digits_points = user_points
         return triangle
     #TODO написать функцию, которая будет заполнять triangle.digits_points

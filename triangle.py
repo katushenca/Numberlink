@@ -49,7 +49,7 @@ class TriangleObject:
 
         return points
 
-    def get_user_free_points(self):
+    def get_user_points(self):
         free_positions = []
         digit_x = 0
         digit_y = 0
@@ -61,14 +61,10 @@ class TriangleObject:
                 self.ascii_triangle[i].lstrip())
             spaces = re.split(r"[/\\]", triangle_wo_start_spaces[i])[1:-1]
             for j in range(len(spaces)):
-                if spaces[j].count(' ') == 2:
-                    free_positions.append(((i - 2) // 3, j + level))
+                if spaces[j].count(' ') < 2:
+                    digit = int(spaces[j].split()[0])
+                    free_positions.append((((i - 2) // 3, j + level), digit))
                     digit_x += 1
             digit_y += 1
             level += 1
         return free_positions
-
-    def get_user_points(self):
-        free_points = self.get_user_free_points()
-        all_points = self.generate_all_points()
-        return [point for point in all_points if point not in free_points]
