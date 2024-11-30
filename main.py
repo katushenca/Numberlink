@@ -26,7 +26,7 @@ def get_filled_triangle():
         triangle_len = input('Введите имя файла (без расширения), которое вы изменили')
         nodes_count = input('Введите количество добавленных точек')
         try:
-            with open(f'C:\\Users\\shute\\Desktop\\repo\\Numberlink\\Numberlink\\triangle_patterns\\{triangle_len}.txt') as file:
+            with open(f'C:\\Users\\shute\\Desktop\\repo\\Numberlink\\Numberlink\\Input\\{triangle_len}.txt') as file:
                 triangle_ascii = []
                 for line in file:
                     if '.' in line:
@@ -36,6 +36,13 @@ def get_filled_triangle():
             print(e.args[0])
         triangle = TriangleObject(int(triangle_len), int(nodes_count))
         triangle.ascii_triangle = triangle_ascii
+        user_points = triangle.get_user_points()
+        all_points = triangle.generate_all_points()
+        free_points = triangle.get_user_free_points()
+        print(f'user_points {user_points}')
+        print(f'user_free_points {free_points}')
+        print(f'all {all_points}')
+        triangle.digits_points = user_points
         return triangle
     #TODO написать функцию, которая будет заполнять triangle.digits_points
 
@@ -46,6 +53,7 @@ finder = PathFinder()
 
 a = triangle.triangle_len * 2 - 1
 b = triangle.triangle_len
+print(f'digits points {triangle.digits_points}')
 all_paths = finder.find_paths(triangle.digits_points[0][0], triangle.digits_points[1][0], a, b, triangle)
 
 
