@@ -43,6 +43,7 @@ def get_filled_triangle():
     #TODO написать функцию, которая будет заполнять triangle.digits_points
 
 triangle = get_filled_triangle()
+max_len = int(input('Введите максимальную длину пути между двумя точками: '))
 print(*triangle.ascii_triangle)
 
 finder = PathFinder()
@@ -50,11 +51,17 @@ finder = PathFinder()
 a = triangle.triangle_len * 2 - 1
 b = triangle.triangle_len
 print(f'digits points {triangle.digits_points}')
-all_paths = finder.find_paths(triangle.digits_points[0][0], triangle.digits_points[1][0], a, b, triangle)
+if len(triangle.digits_points) != triangle.nodes_count*2:
+    print('Введен некорректный пример')
+    exit()
+if len(triangle.digits_points) == 0:
+    print('Кол-во точек min 1')
+    exit()
+all_paths = finder.find_paths(triangle.digits_points[0][0], triangle.digits_points[1][0], a, b, triangle, max_len)
 
 
 parser = OutputParser()
-solutions = finder.find_solutions(triangle.digits_points, a, b, triangle)
+solutions = finder.find_solutions(triangle.digits_points, a, b, triangle, max_len)
 print('solutions')
 lines = 'abcdefghijklmnopqrstuvwxyz'
 count = 0
