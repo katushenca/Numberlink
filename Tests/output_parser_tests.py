@@ -1,7 +1,9 @@
 import unittest
-from ..output_parser import OutputParser
-from ..triangle import TriangleObject
-
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from Numberlink.output_parser import OutputParser
+from Numberlink.triangle import TriangleObject
 class TestOutputParser(unittest.TestCase):
     def test_get_output_with_good_triangle_1(self):
         triangle = TriangleObject(3, 2)

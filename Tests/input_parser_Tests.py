@@ -1,6 +1,9 @@
 import unittest
 from unittest.mock import patch
-from ..input_parser import InputParser
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+from Numberlink.input_parser import InputParser
 
 class TestInputParser(unittest.TestCase):
     def test_get_input_data_valid_input(self):

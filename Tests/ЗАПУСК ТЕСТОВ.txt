@@ -1,0 +1,2 @@
+ python -m unittest input_parser_Tests.py
+ python -m unittest output_parser_tests.py
